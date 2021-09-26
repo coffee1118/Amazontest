@@ -23,7 +23,9 @@ javascript: (
         const itemEles = order.getElementsByClassName("a-fixed-left-grid-col a-col-right");
         
         [...itemEles].forEach((item, index) => {
-          if(item.getElementsByClassName("a-link-normal")){
+          console.log(item);
+          console.log(index);
+          if(index.getElementsByClassName("a-link-normal")){
               const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/,/g, " ").trim();
               const itemUrl = item.getElementsByClassName("a-link-normal")[0].getAttribute("href");
               if (index == 0) {
@@ -31,7 +33,7 @@ javascript: (
               } else {
                 content += `${orderId},${orderDate}, ,${itemName},https://www.amazon.co.jp${itemUrl}\n`;
               }
-              console.log(itemName)
+              
             
           }
         });
