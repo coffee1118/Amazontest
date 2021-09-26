@@ -50,11 +50,10 @@ javascript: (
 
     function DownloadCsv() {
       let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
-      //let data = records.map((record) => record.join('\t')).join('\r\n');
       let blob = new Blob([ bom, content ], { 'type' : 'text/csv' });
-      
+
       let downloadLink = document.createElement('a');
-      downloadLink.download = year + 'amazon.csv';
+      downloadLink.download = 'sample.csv';
       downloadLink.href = URL.createObjectURL(blob);
       downloadLink.dataset.downloadurl = ['text/plain', downloadLink.download, downloadLink.href].join(':');
       downloadLink.click();
