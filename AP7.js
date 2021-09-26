@@ -47,28 +47,26 @@ javascript: (
         })
       }
     }
-    /*
-    function downloadCSV() {
-      let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
-      let blob = new Blob([ bom, content ], { 'type' : 'text/csv' });
 
+    function DownloadCsv() {
+      let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+      //let data = records.map((record) => record.join('\t')).join('\r\n');
+      let blob = new Blob([ bom, content ], { 'type' : 'text/csv' });
+      
       let downloadLink = document.createElement('a');
-      downloadLink.download = 'sample.csv';
+      downloadLink.download = year + 'amazon.csv';
       downloadLink.href = URL.createObjectURL(blob);
       downloadLink.dataset.downloadurl = ['text/plain', downloadLink.download, downloadLink.href].join(':');
       downloadLink.click();
-      
-    }*/
-  
-
-
+    }
+    
+    
     function outputTsv() {
       let win = window.open('', 'name', 'height=250,width=700');      
       win.document.write('<html><head><title>Amazon to TSV</title>');
       win.document.write('<pre>');
-      //win.document.write('注文番号,注文日,金額,商品名,URL\n');
       win.document.write(content);
-     //win.document.write('\n\n<button id="download" type="button">Download CSV</button>');  
+      win.document.write('\n\n<button type="button" onClick="DownloadCsv()">CSVダウンロード</button>');
       win.document.write('</pre>');
       win.document.write('</body></html>');
       
@@ -77,12 +75,6 @@ javascript: (
       link.href = URL.createObjectURL(blob);
       link.download =year + "AP.csv";
       link.click();
-      
-      //ボタンを取得する
-      //const download = document.getElementById("download");
-      //ボタンがクリックされたら「downloadCSV」を実行する
-      //download.addEventListener("click", downloadCSV, false);
-
       
       win.document.close();
     }
