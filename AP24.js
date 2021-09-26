@@ -21,6 +21,7 @@ javascript: (
         total += orderPrice;
 
         const itemEles = order.getElementsByClassName("a-fixed-left-grid-col a-col-right");
+        console.log(itemEles);
         if(itemEles.getElementsByClassName("a-link-normal")){
           [...itemEles].forEach((item, index) => {
             const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/,/g, " ").trim();
