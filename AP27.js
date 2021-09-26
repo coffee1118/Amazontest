@@ -24,16 +24,15 @@ javascript: (
         
         [...itemEles].forEach((item, index) => {
           if(item.getElementsByClassName("a-link-normal")){
-            const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/,/g, " ").trim();
-            const itemUrl = item.getElementsByClassName("a-link-normal")[0].getAttribute("href");
-            if (index == 0) {
-              content += `${orderId},${orderDate},${orderPrice},${itemName},https://www.amazon.co.jp${itemUrl}\n`;
-            } else {
-              content += `${orderId},${orderDate}, ,${itemName},https://www.amazon.co.jp${itemUrl}\n`;
-            }
-            
-          });
-        }
+              const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/,/g, " ").trim();
+              const itemUrl = item.getElementsByClassName("a-link-normal")[0].getAttribute("href");
+              if (index == 0) {
+                content += `${orderId},${orderDate},${orderPrice},${itemName},https://www.amazon.co.jp${itemUrl}\n`;
+              } else {
+                content += `${orderId},${orderDate}, ,${itemName},https://www.amazon.co.jp${itemUrl}\n`;
+              }
+          }
+        });
       });
     }
 
