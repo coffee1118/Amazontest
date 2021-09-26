@@ -23,9 +23,7 @@ javascript: (
         const itemEles = order.getElementsByClassName("a-fixed-left-grid-col a-col-right");
         
         [...itemEles].forEach((item, index) => {
-          console.log(item);
-          console.log(item.getElementsByClassName("a-link-normal").length);
-          if(item.getElementsByClassName("a-link-normal")){
+          if(item.getElementsByClassName("a-link-normal").length){
               const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/,/g, " ").trim();
               const itemUrl = item.getElementsByClassName("a-link-normal")[0].getAttribute("href");
               if (index == 0) {
