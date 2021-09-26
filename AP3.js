@@ -1,7 +1,7 @@
 javascript: (
   function () {
     let total = 0;
-    let content = '';
+    let content = '注文番号,注文日,金額,商品名,URL\n';
     let pageNum = 0;
 
     function parseHistory(text) {
@@ -48,15 +48,45 @@ javascript: (
       }
     }
 
+    function downloadCSV() {
+      //ダウンロードするCSVファイル名を指定する
+      const filename = year +"_amazon.csv";
+      //BOMを付与する（Excelでの文字化け対策）
+      const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
+      //Blobでデータを作成する
+      const blob = new Blob([bom, content], { type: "text/csv" });
+      //BlobからオブジェクトURLを作成する
+      const url = (window.URL || window.webkitURL).createObjectURL(blob);
+      //ダウンロード用にリンクを作成する
+      const download = document.createElement("a");
+      //リンク先に上記で生成したURLを指定する
+      download.href = url;
+      //download属性にファイル名を指定する
+      download.download = filename;
+      //作成したリンクをクリックしてダウンロードを実行する
+      download.click();
+      //createObjectURLで作成したオブジェクトURLを開放する
+      (window.URL || window.webkitURL).revokeObjectURL(url);
+      
+    }
+  
+
+
     function outputTsv() {
       let win = window.open('', 'name', 'height=250,width=700');
       win.document.write('<html><head><title>Amazon to TSV</title>');
       win.document.write('<pre>');
-      win.document.write('注文番号,注文日,金額,商品名,URL\n');
+      //win.document.write('注文番号,注文日,金額,商品名,URL\n');
       win.document.write(content);
       win.document.write('</pre>');
       win.document.write('</body></html>');
       win.document.close();
+      
+      //ボタンを取得する
+      const download = document.getElementById("download");
+      //ボタンがクリックされたら「downloadCSV」を実行する
+      download.addEventListener("click", downloadCSV, false);
+
     }
 
     const year = window.prompt("西暦何年のAmazonでの購入金額合計を調べますか？\n - 半角数字4桁で入力(2000年以降)\n - 全期間を調べる場合は「all」と入力");
@@ -82,5 +112,6 @@ javascript: (
           outputTsv();
         });
     }
+    
   }
 )();
