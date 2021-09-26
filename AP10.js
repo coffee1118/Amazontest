@@ -49,7 +49,7 @@ javascript: (
     }
 
     function DownloadCsv() {
-      window.prompt('test')
+      let a = window.prompt("test");
       let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
       let blob = new Blob([ bom, content ], { 'type' : 'text/csv' });
 
