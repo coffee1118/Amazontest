@@ -48,17 +48,7 @@ javascript: (
       }
     }
 
-    function DownloadCsv() {
-      let a = window.prompt("test");
-      let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
-      let blob = new Blob([ bom, content ], { 'type' : 'text/csv' });
 
-      let downloadLink = document.createElement('a');
-      downloadLink.download = 'sample.csv';
-      downloadLink.href = URL.createObjectURL(blob);
-      downloadLink.dataset.downloadurl = ['text/plain', downloadLink.download, downloadLink.href].join(':');
-      downloadLink.click();
-    }
     
     
     function outputTsv() {
@@ -68,7 +58,17 @@ javascript: (
       win.document.write(content);
       win.document.write('\n\n<button type="button" onClick="DownloadCsv()">CSVダウンロード</button>');
       win.document.write('</pre>');
-      win.document.write('</body></html>');
+      win.document.write('<script>');
+      win.document.write(function DownloadCsv() {
+                              let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+                              let blob = new Blob([ bom, content ], { 'type' : 'text/csv' });
+                              let downloadLink = document.createElement('a');
+                              downloadLink.download = 'sample.csv';
+                              downloadLink.href = URL.createObjectURL(blob);
+                              downloadLink.dataset.downloadurl = ['text/plain', downloadLink.download, downloadLink.href].join(':');
+                              downloadLink.click()
+      );
+      win.document.write('</script></body></html>');
       win.document.close();
     }
 
