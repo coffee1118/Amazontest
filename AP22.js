@@ -22,17 +22,18 @@ javascript: (
 
         const itemEles = order.getElementsByClassName("a-fixed-left-grid-col a-col-right");
         var a_element = document.getElementById("a-fixed-left-grid-col a-col-right");
+        print(a_element);
         if(a_element.classList.contains("a-link-normal")){
-        [...itemEles].forEach((item, index) => {
-          const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/,/g, " ").trim();
-          const itemUrl = item.getElementsByClassName("a-link-normal")[0].getAttribute("href");
-          if (index == 0) {
-            content += `${orderId},${orderDate},${orderPrice},${itemName},https://www.amazon.co.jp${itemUrl}\n`;
-          } else {
-            content += `${orderId},${orderDate}, ,${itemName},https://www.amazon.co.jp${itemUrl}\n`;
-          }
-          
-        });
+          [...itemEles].forEach((item, index) => {
+            const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/,/g, " ").trim();
+            const itemUrl = item.getElementsByClassName("a-link-normal")[0].getAttribute("href");
+            if (index == 0) {
+              content += `${orderId},${orderDate},${orderPrice},${itemName},https://www.amazon.co.jp${itemUrl}\n`;
+            } else {
+              content += `${orderId},${orderDate}, ,${itemName},https://www.amazon.co.jp${itemUrl}\n`;
+            }
+            
+          });
         }
       });
     }
