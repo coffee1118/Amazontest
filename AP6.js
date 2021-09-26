@@ -47,28 +47,18 @@ javascript: (
         })
       }
     }
-
+    /*
     function downloadCSV() {
-      //ダウンロードするCSVファイル名を指定する
-      const filename = year +"_amazon.csv";
-      //BOMを付与する（Excelでの文字化け対策）
-      const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
-      //Blobでデータを作成する
-      const blob = new Blob([bom, content], { type: "text/csv" });
-      //BlobからオブジェクトURLを作成する
-      const url = (window.URL || window.webkitURL).createObjectURL(blob);
-      //ダウンロード用にリンクを作成する
-      const download = document.createElement("a");
-      //リンク先に上記で生成したURLを指定する
-      download.href = url;
-      //download属性にファイル名を指定する
-      download.download = filename;
-      //作成したリンクをクリックしてダウンロードを実行する
-      download.click();
-      //createObjectURLで作成したオブジェクトURLを開放する
-      (window.URL || window.webkitURL).revokeObjectURL(url);
+      let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+      let blob = new Blob([ bom, content ], { 'type' : 'text/csv' });
+
+      let downloadLink = document.createElement('a');
+      downloadLink.download = 'sample.csv';
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.dataset.downloadurl = ['text/plain', downloadLink.download, downloadLink.href].join(':');
+      downloadLink.click();
       
-    }
+    }*/
   
 
 
@@ -78,19 +68,23 @@ javascript: (
       win.document.write('<pre>');
       //win.document.write('注文番号,注文日,金額,商品名,URL\n');
       win.document.write(content);
-      win.document.write('\n\n<button id="download" type="button">Download CSV</button>');
+     //win.document.write('\n\n<button id="download" type="button">Download CSV</button>');  
       win.document.write('</pre>');
       win.document.write('</body></html>');
       
+      var blob =new Blob(content,{type:"text/csv"}); //配列に上記の文字列(str)を設定
+      var link =document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download =year + "AP.csv";
+      link.click();
+      
       //ボタンを取得する
-      const download = document.getElementById("download");
+      //const download = document.getElementById("download");
       //ボタンがクリックされたら「downloadCSV」を実行する
-      download.addEventListener("click", downloadCSV, false);
+      //download.addEventListener("click", downloadCSV, false);
+
       
       win.document.close();
-      
-      
-
     }
 
     const year = window.prompt("西暦何年のAmazonでの購入金額合計を調べますか？\n - 半角数字4桁で入力(2000年以降)\n - 全期間を調べる場合は「all」と入力");
