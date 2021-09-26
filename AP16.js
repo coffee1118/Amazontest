@@ -1,7 +1,7 @@
 javascript: (
   function () {
     let total = 0;
-    let content = '注文番号,注文日,金額,商品名,URL\n';
+    let content = '注文日,金額,商品名,URL\n';
     let pageNum = 0;
 
     function parseHistory(text) {
@@ -15,7 +15,7 @@ javascript: (
       const orders = doc.getElementsByClassName("a-box-group a-spacing-base order");
       [...orders].forEach(order => {
         const orderDate = order.getElementsByClassName("a-color-secondary value")[0].textContent.trim();
-        const orderId = order.getElementsByClassName("a-color-secondary value")[2].textContent.trim();
+        //const orderId = order.getElementsByClassName("a-color-secondary value")[2].textContent.trim();
         const orderPriceStr = order.getElementsByClassName("a-color-secondary value")[1].textContent.replace(/[￥ ,]/g, '')
         const orderPrice = (Number(orderPriceStr) | 0);
         total += orderPrice;
@@ -25,9 +25,9 @@ javascript: (
           const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/,/g, " ").trim();
           const itemUrl = item.getElementsByClassName("a-link-normal")[0].getAttribute("href");
           if (index == 0) {
-            content += `${orderId},${orderDate},${orderPrice},${itemName},https://www.amazon.co.jp${itemUrl}\n`;
+            content += `${orderDate},${orderPrice},${itemName},https://www.amazon.co.jp${itemUrl}\n`;
           } else {
-            content += `${orderId},${orderDate}, ,${itemName},https://www.amazon.co.jp${itemUrl}\n`;
+            content += `${orderDate}, ,${itemName},https://www.amazon.co.jp${itemUrl}\n`;
           }
         });
       });
