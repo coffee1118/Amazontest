@@ -69,13 +69,6 @@ javascript: (
       win.document.write('\n\n<button type="button" onClick="DownloadCsv()">CSVダウンロード</button>');
       win.document.write('</pre>');
       win.document.write('</body></html>');
-      
-      var blob =new Blob(content,{type:"text/csv"}); //配列に上記の文字列(str)を設定
-      var link =document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download =year + "AP.csv";
-      link.click();
-      
       win.document.close();
     }
 
