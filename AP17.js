@@ -1,7 +1,7 @@
 javascript: (
   function () {
     let total = 0;
-    let content = '注文日,金額,商品名,URL\n';
+    let content = '注文番号,注文日,金額,商品名,URL\n';
     let pageNum = 0;
 
     function parseHistory(text) {
@@ -15,21 +15,24 @@ javascript: (
       const orders = doc.getElementsByClassName("a-box-group a-spacing-base order");
       [...orders].forEach(order => {
         const orderDate = order.getElementsByClassName("a-color-secondary value")[0].textContent.trim();
-        //const orderId = order.getElementsByClassName("a-color-secondary value")[2].textContent.trim();
+        const orderId = order.getElementsByClassName("a-color-secondary value")[2].textContent.trim();
         const orderPriceStr = order.getElementsByClassName("a-color-secondary value")[1].textContent.replace(/[￥ ,]/g, '')
         const orderPrice = (Number(orderPriceStr) | 0);
         total += orderPrice;
 
         const itemEles = order.getElementsByClassName("a-fixed-left-grid-col a-col-right");
+        if( element.className == "a-link-normal"){
         [...itemEles].forEach((item, index) => {
           const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/,/g, " ").trim();
           const itemUrl = item.getElementsByClassName("a-link-normal")[0].getAttribute("href");
           if (index == 0) {
-            content += `${orderDate},${orderPrice},${itemName},https://www.amazon.co.jp${itemUrl}\n`;
+            content += `${orderId},${orderDate},${orderPrice},${itemName},https://www.amazon.co.jp${itemUrl}\n`;
           } else {
-            content += `${orderDate}, ,${itemName},https://www.amazon.co.jp${itemUrl}\n`;
+            content += `${orderId},${orderDate}, ,${itemName},https://www.amazon.co.jp${itemUrl}\n`;
           }
+          
         });
+        }
       });
     }
 
@@ -47,19 +50,13 @@ javascript: (
         })
       }
     }
-
-
-    
     
     function outputTsv() {
       let win = window.open('', 'name', 'height=250,width=700');      
       win.document.write('<html><head><title>Amazon to TSV</title>');
       win.document.write('<pre>');
       win.document.write(content);
-     // win.document.write('\n\n<button type="button" onClick="DownloadCsv()">CSVダウンロード</button>');
       win.document.write('</pre>');
-      //win.document.write('<script>');
-     //win.document.write('function DownloadCsv() {let bom = new Uint8Array([0xEF, 0xBB, 0xBF]);let blob = new Blob([ bom, content ], { 'type' : 'text/csv' });let downloadLink = document.createElement('a');downloadLink.download = 'sample.csv';downloadLink.href = URL.createObjectURL(blob);downloadLink.dataset.downloadurl = ['text/plain', downloadLink.download, downloadLink.href].join(':'); downloadLink.click()}');
       win.document.write('</body></html>');
       win.document.close();
     }
