@@ -74,18 +74,21 @@ javascript: (
 
     function outputTsv() {
       let win = window.open('', 'name', 'height=250,width=700');
-      win.document.write('<html><head><title>Amazon to TSV</title>');
-      win.document.write('<pre>');
-      //win.document.write('注文番号,注文日,金額,商品名,URL\n');
-      win.document.write(content);
-      win.document.write('</pre>');
-      win.document.write('</body></html>');
-      win.document.close();
-      
       //ボタンを取得する
       const download = document.getElementById("download");
       //ボタンがクリックされたら「downloadCSV」を実行する
       download.addEventListener("click", downloadCSV, false);
+      
+      win.document.write('<html><head><title>Amazon to TSV</title>');
+      win.document.write('<pre>');
+      //win.document.write('注文番号,注文日,金額,商品名,URL\n');
+      win.document.write(content);
+      win.document.write('\n\n<button id="download" type="button">Download CSV</button>');
+      win.document.write('</pre>');
+      win.document.write('</body></html>');
+      win.document.close();
+      
+
 
     }
 
