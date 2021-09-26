@@ -31,6 +31,8 @@ javascript: (
               } else {
                 content += `${orderId},${orderDate}, ,${itemName},https://www.amazon.co.jp${itemUrl}\n`;
               }
+              console.log(itemName)
+            
           }
         });
       });
