@@ -21,9 +21,7 @@ javascript: (
         total += orderPrice;
 
         const itemEles = order.getElementsByClassName("a-fixed-left-grid-col a-col-right");
-        var a_element = document.getElementById("a-fixed-left-grid-col a-col-right");
-        console.log(a_element);
-        if(a_element.classList.contains("a-link-normal")){
+        if(itemEles.getElementsByClassName("a-link-normal")){
           [...itemEles].forEach((item, index) => {
             const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/,/g, " ").trim();
             const itemUrl = item.getElementsByClassName("a-link-normal")[0].getAttribute("href");
