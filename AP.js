@@ -25,9 +25,9 @@ javascript: (
           const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/\t/g, " ").trim();
           const itemUrl = item.getElementsByClassName("a-link-normal")[0].getAttribute("href");
           if (index == 0) {
-            content += `${orderId}\t${orderDate}\t${orderPrice}\t${itemName}\thttps://www.amazon.co.jp${itemUrl}\n`;
+            content += `${orderId},${orderDate},${orderPrice},${itemName},https://www.amazon.co.jp${itemUrl}\n`;
           } else {
-            content += `${orderId}\t${orderDate}\t \t${itemName}\thttps://www.amazon.co.jp${itemUrl}\n`;
+            content += `${orderId},${orderDate}, ,${itemName},https://www.amazon.co.jp${itemUrl}\n`;
           }
         });
       });
@@ -49,21 +49,10 @@ javascript: (
     }
 
     function outputTsv() {
-      let win = window.open('', 'name', 'height=250,width=700');
+      let win = window.open('', 'name', 'height=500,width=700');
       win.document.write('<html><head><title>Amazon to TSV</title>');
-      win.document.write(`
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-XXXXXX');</script>
-<!-- End Google Tag Manager -->
-</head>
-<body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBHQLZ3" height="100" width="100"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-`);
       win.document.write('<pre>');
-      win.document.write('注文番号\t注文日\t金額\t商品名\tURL\n');
+      win.document.write('注文番号,注文日,金額,商品名,URL\n');
       win.document.write(content);
       win.document.write('</pre>');
       win.document.write('</body></html>');
