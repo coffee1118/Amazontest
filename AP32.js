@@ -24,7 +24,7 @@ javascript: (
         
         [...itemEles].forEach((item, index) => {
           console.log(item);
-          console.log(item.getElementsByClassName("a-link-normal"));
+          console.log(item.getElementsByClassName("a-link-normal").length);
           if(item.getElementsByClassName("a-link-normal")){
               const itemName = item.getElementsByClassName("a-link-normal")[0].textContent.replace(/,/g, " ").trim();
               const itemUrl = item.getElementsByClassName("a-link-normal")[0].getAttribute("href");
